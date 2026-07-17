@@ -4,115 +4,66 @@ const Auth = require("./core/auth");
 
 console.log("INDEX.JS VERSI BARU JALAN");
 
-
 const app = express();
 
 app.use(express.json());
 
-
 const PORT = process.env.PORT || 3000;
 
-
-
+// Middleware API Key
 function auth(req, res, next) {
 
-  console.log(req.headers);
+    console.log("HEADERS:", req.headers);
 
-  try {
-    Auth.checkKey(req.headers["x-api-key"]);
-    next();
-  } catch (err) {
-    res.status(403).json({ error: "API KEY INVALID" });
-  }
+    try {
 
-}
+        Auth.checkKey(req.headers["x-api-key"]);
 
-next();
+        next();
 
-}catch(err){
+    } catch (err) {
 
-res.status(403).json({
-error:"API KEY INVALID"
-});
+        return res.status(403).json({
+            error: "API KEY INVALID"
+        });
+
+    }
 
 }
-
-}
-
-
 
 // Status
+app.get("/", (req, res) => {
 
-app.get("/",(req,res)=>{
-
-res.json({
-
-name:"DBReyCloudProjeck",
-
-version:"2.0.0",
-
-status:"online"
+    res.json({
+        name: "DBReyCloudProjeck",
+        version: "2.0.0",
+        status: "online"
+    });
 
 });
-
-});
-
-
-
 
 // GET USERS
+app.get("/users", auth, (req, res) => {
 
-app.get(
-"/users",
-auth,
-(req,res)=>{
+    const users = new DB("users");
 
-const users =
-new DB("users");
-
-
-res.json(
-users.find({})
-);
+    res.json(users.find({}));
 
 });
-
-
-
 
 // CREATE USER
+app.post("/users", auth, (req, res) => {
 
-app.post(
-"/users",
-auth,
-(req,res)=>{
+    const users = new DB("users");
 
+    const data = users.insert(req.body);
 
-const users =
-new DB("users");
-
-
-let data =
-users.insert(
-req.body
-);
-
-
-res.json(data);
-
+    res.json(data);
 
 });
 
+app.listen(PORT, "0.0.0.0", () => {
 
-
-
-app.listen(
-PORT,
-"0.0.0.0",
-()=>{
-
-console.log(
-`🚀 DBReyCloudProjeck Online : ${PORT}`
-);
+    console.log(`🚀 DBReyCloudProjeck Online : ${PORT}`);
 
 });
