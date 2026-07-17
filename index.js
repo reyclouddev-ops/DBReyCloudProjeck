@@ -14,13 +14,18 @@ const PORT = process.env.PORT || 3000;
 
 
 
-function auth(req,res,next){
+function auth(req, res, next) {
 
-try{
+  console.log(req.headers);
 
-Auth.checkKey(
-req.headers["x-api-key"]
-);
+  try {
+    Auth.checkKey(req.headers["x-api-key"]);
+    next();
+  } catch (err) {
+    res.status(403).json({ error: "API KEY INVALID" });
+  }
+
+}
 
 next();
 
