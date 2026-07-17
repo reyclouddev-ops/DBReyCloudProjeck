@@ -1,61 +1,111 @@
-const DB =
-require("./core/db");
+const express = require("express");
+const DB = require("./core/db");
+const Auth = require("./core/auth");
 
 
-const Auth =
-require("./core/auth");
+const app = express();
+
+app.use(express.json());
 
 
-const Backup =
-require("./core/backup");
+const PORT = process.env.PORT || 3000;
 
 
+
+function auth(req,res,next){
+
+try{
 
 Auth.checkKey(
-"REY_PRIVATE_KEY_001"
+req.headers["x-api-key"]
 );
 
+next();
+
+}catch(err){
+
+res.status(403).json({
+error:"API KEY INVALID"
+});
+
+}
+
+}
+
+
+
+// Status
+
+app.get("/",(req,res)=>{
+
+res.json({
+
+name:"DBReyCloudProjeck",
+
+version:"2.0.0",
+
+status:"online"
+
+});
+
+});
+
+
+
+
+// GET USERS
+
+app.get(
+"/users",
+auth,
+(req,res)=>{
+
+const users =
+new DB("users");
+
+
+res.json(
+users.find({})
+);
+
+});
+
+
+
+
+// CREATE USER
+
+app.post(
+"/users",
+auth,
+(req,res)=>{
 
 
 const users =
 new DB("users");
 
 
+let data =
+users.insert(
+req.body
+);
 
-let user =
-users.insert({
 
-username:"Rey",
+res.json(data);
 
-role:"owner",
-
-project:"ReyCloud"
 
 });
 
 
 
-console.log(
-"USER BARU:"
-);
 
-console.log(user);
-
-
+app.listen(
+PORT,
+"0.0.0.0",
+()=>{
 
 console.log(
-"CARI OWNER:"
+`🚀 DBReyCloudProjeck Online : ${PORT}`
 );
 
-
-console.log(
-users.find({
-role:"owner"
-})
-);
-
-
-
-Backup.backup(
-"./storage/users.json"
-);
+});
