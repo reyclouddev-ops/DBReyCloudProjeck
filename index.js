@@ -2,6 +2,8 @@ const express = require("express");
 const DB = require("./core/db");
 const Auth = require("./core/auth");
 
+console.log("INDEX.JS VERSI BARU JALAN");
+
 
 const app = express();
 
