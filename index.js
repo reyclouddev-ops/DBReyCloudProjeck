@@ -1,69 +1,66 @@
 const express = require("express");
-const DB = require("./core/db");
-const Auth = require("./core/auth");
+const cors = require("cors");
 
-console.log("INDEX.JS VERSI BARU JALAN");
+const config = require("./config/config");
+
+const storage = require("./core/storage");
+
+const api = require("./routes/api");
+
+storage.initStorage();
 
 const app = express();
 
+app.use(cors());
+
 app.use(express.json());
 
-const PORT = process.env.PORT || 3000;
+app.use(express.static("public"));
 
-// Middleware API Key
-function auth(req, res, next) {
+app.use("/api", api);
 
-    console.log("HEADERS:", req.headers);
+app.listen(
 
-    try {
+config.port,
 
-        Auth.checkKey(req.headers["x-api-key"]);
+config.host,
 
-        next();
+()=>{
 
-    } catch (err) {
+console.clear();
 
-        return res.status(403).json({
-            error: "API KEY INVALID"
-        });
+console.log("");
 
-    }
+console.log("🚀 DBReyCloudProjeck v3.0");
+
+console.log("");
+
+console.log("STATUS     : ONLINE");
+
+console.log("HOST       :",config.host);
+
+console.log("PORT       :",config.port);
+
+console.log("");
+
+console.log("Dashboard  :");
+
+console.log(`http://localhost:${config.port}`);
+
+console.log("");
+
+console.log("API        :");
+
+console.log(`http://localhost:${config.port}/api`);
+
+console.log("");
+
+console.log("Storage    :");
+
+console.log(config.storage);
+
+console.log("");
 
 }
 
-// Status
-app.get("/", (req, res) => {
-
-    res.json({
-        name: "DBReyCloudProjeck",
-        version: "2.0.0",
-        status: "online"
-    });
-
-});
-
-// GET USERS
-app.get("/users", auth, (req, res) => {
-
-    const users = new DB("users");
-
-    res.json(users.find({}));
-
-});
-
-// CREATE USER
-app.post("/users", auth, (req, res) => {
-
-    const users = new DB("users");
-
-    const data = users.insert(req.body);
-
-    res.json(data);
-
-});
-
-app.listen(PORT, "0.0.0.0", () => {
-
-    console.log(`🚀 DBReyCloudProjeck Online : ${PORT}`);
-
-});
+);
