@@ -2,16 +2,20 @@ const express = require("express");
 
 const router = express.Router();
 
-router.get("/", (req,res)=>{
+const database = require("./database");
+const collection = require("./collection");
+const document = require("./document");
+
+router.use("/database", database);
+router.use("/collection", collection);
+router.use("/document", document);
+
+router.get("/", (req, res) => {
 
     res.json({
-
-        name:"DBReyCloudProjeck",
-
-        version:"3.0.0",
-
-        status:"online"
-
+        success: true,
+        version: "3.0.0",
+        message: "DBReyCloud API Ready"
     });
 
 });
