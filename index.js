@@ -5,13 +5,13 @@ const config = require("./config/config");
 
 const storage = require("./core/storage");
 
+const app = express();
+
 const api = require("./routes/api");
 
-app.use("/api", api);
 
 storage.initStorage();
 
-const app = express();
 
 app.use(cors());
 
@@ -20,6 +20,7 @@ app.use(express.json());
 app.use(express.static("public"));
 
 app.use("/api", api);
+
 
 app.listen(
 
