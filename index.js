@@ -7,6 +7,8 @@ const storage = require("./core/storage");
 
 const api = require("./routes/api");
 
+app.use("/api", api);
+
 storage.initStorage();
 
 const app = express();
