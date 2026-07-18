@@ -1,0 +1,11 @@
+{
+  "name": "DBReyCloudProjeck",
+  "version": "3.0.0",
+  "private": true,
+
+  "apiKey": "REY_PRIVATE_KEY_001",
+
+  "jwtSecret": "REYCLOUD_SUPER_SECRET_2026",
+
+  "jwtExpired": "1y"
+}
