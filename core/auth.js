@@ -1,27 +1,28 @@
-const config =
-require("../config.json");
+const ApiKey =
+require("./apikey");
 
+module.exports = function(req,res,next){
 
-function checkKey(key){
+    const key =
+        req.headers["x-api-key"];
 
-console.log("KEY DARI REQUEST:", key);
-console.log("KEY DARI CONFIG:", config.apiKey);
+    if(!key)
+        return res.status(401).json({
+            success:false,
+            message:"API KEY REQUIRED"
+        });
 
+    const data =
+        ApiKey.verify(key);
 
-if(key !== config.apiKey){
+    if(!data)
+        return res.status(403).json({
+            success:false,
+            message:"API KEY INVALID"
+        });
 
-throw Error(
-"API KEY SALAH"
-);
+    req.user=data;
+
+    next();
 
 }
-
-
-return true;
-
-}
-
-
-module.exports={
-checkKey
-};
