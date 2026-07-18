@@ -35,6 +35,25 @@ class Collection{
 
     write(data){
 
+ insertOne(data){
+
+    const Document =
+    require("./document");
+
+    const docs =
+    this.read();
+
+    const doc =
+    Document.create(data);
+
+    docs.push(doc);
+
+    this.write(docs);
+
+    return doc;
+
+}
+        
         fs.writeFileSync(
 
             this.file,
