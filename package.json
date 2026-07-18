@@ -1,11 +1,15 @@
 {
   "name": "dbreycloudprojeck",
-  "version": "2.0.0",
+  "version": "3.0.0",
+  "description": "Document Database Server",
   "main": "index.js",
+  "private": true,
   "scripts": {
     "start": "node index.js"
   },
   "dependencies": {
-    "express": "^5.0.0"
+    "express": "^5.1.0",
+    "cors": "^2.8.5",
+    "uuid": "^11.1.0"
   }
 }
