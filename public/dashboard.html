@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Dashboard</title>
+
+<link rel="stylesheet" href="/css/dashboard.css">
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+<div class="logo">
+
+☁️ DBRC
+
+</div>
+
+<a class="active">
+🏠 Dashboard
+</a>
+
+<a>
+📦 Databases
+</a>
+
+<a>
+🔑 API Keys
+</a>
+
+<a>
+📄 Documentation
+</a>
+
+<a>
+⚙️ Settings
+</a>
+
+<a>
+🚪 Logout
+</a>
+
+</div>
+
+
+<div class="main">
+
+<div class="topbar">
+
+<h2 id="welcome">
+
+Welcome 👋
+
+</h2>
+
+<div class="status">
+
+🟢 ONLINE
+
+</div>
+
+</div>
+
+
+<div class="cards">
+
+<div class="card">
+
+<h3>
+
+📦 Databases
+
+</h3>
+
+<h1 id="dbCount">
+
+0
+
+</h1>
+
+</div>
+
+<div class="card">
+
+<h3>
+
+📁 Collections
+
+</h3>
+
+<h1 id="collectionCount">
+
+0
+
+</h1>
+
+</div>
+
+<div class="card">
+
+<h3>
+
+📄 Documents
+
+</h3>
+
+<h1 id="documentCount">
+
+0
+
+</h1>
+
+</div>
+
+<div class="card">
+
+<h3>
+
+🔑 API Keys
+
+</h3>
+
+<h1 id="apikeyCount">
+
+1
+
+</h1>
+
+</div>
+
+</div>
+
+
+<div class="panel">
+
+<h2>
+
+My Database
+
+</h2>
+
+<input
+id="databaseName"
+placeholder="Database Name">
+
+<button id="createDatabase">
+
+Create Database
+
+</button>
+
+</div>
+
+
+<div class="panel">
+
+<h2>
+
+Database Information
+
+</h2>
+
+<p>
+
+Database URL
+
+</p>
+
+<input
+id="databaseUrl"
+readonly>
+
+<p>
+
+API KEY
+
+</p>
+
+<input
+id="apiKey"
+readonly>
+
+<div class="buttons">
+
+<button id="copyUrl">
+
+Copy URL
+
+</button>
+
+<button id="copyKey">
+
+Copy API KEY
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<script src="/js/dashboard.js"></script>
+
+</body>
+
+</html>
