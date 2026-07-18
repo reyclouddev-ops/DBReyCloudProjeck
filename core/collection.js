@@ -53,6 +53,71 @@ class Collection{
     return doc;
 
 }
+
+        find(){
+
+    return this.read();
+
+        }
+
+        findOne(id){
+
+    return this
+    .read()
+    .find(x=>x._id===id);
+
+        }
+
+        deleteOne(id){
+
+    const docs =
+    this.read();
+
+    const index =
+    docs.findIndex(
+        x=>x._id===id
+    );
+
+    if(index==-1)
+        return false;
+
+    docs.splice(index,1);
+
+    this.write(docs);
+
+    return true;
+
+        }
+
+        updateOne(id,data){
+
+    const docs =
+    this.read();
+
+    const index =
+    docs.findIndex(
+        x=>x._id===id
+    );
+
+    if(index==-1)
+        return null;
+
+    docs[index]={
+
+        ...docs[index],
+
+        ...data,
+
+        updatedAt:
+        new Date()
+
+    };
+
+    this.write(docs);
+
+    return docs[index];
+
+        }
         
         fs.writeFileSync(
 
